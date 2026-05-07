@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>House Rent Prediction in India</title>
+</head>
+<body>
+    <h2>House Rent Prediction</h2>
+    <form action="/predict_ui" method="post">
+        <label>Area Locality:</label><br>
+        <input type="text" name="area_locality"><br><br>
+
+        <label>BHK:</label><br>
+        <input type="number" name="bhk"><br><br>
+
+        <label>Size</label><br>
+        <input type="number" name="size"><br><br>
+
+        <label>Bathroom:</label><br>
+        <input type="number" name="bathroom"><br><br>
+
+        <select name="city">
+            <option value="Chennai">Chennai</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Kolkata">Kolkata</option>
+            <option value="Hyderabad">Hyderabad</option>
+        </select>
+
+        <select name="area_type">
+            <option value="Super Area">Super Area</option>
+            <option value="Carpet Area">Carpet Area</option>
+            <option value="Built Area">Built Area</option>
+        </select>
+
+        <select name="furnishing_status">
+            <option value="Unfurnished">Unfurnished</option>
+            <option value="Semi-Furnished">Semi Furnished</option>
+            <option value="Furnished">Furnished</option>
+        </select>
+
+        <select name="tenant_preferred">
+            <option value="Bachelors">Bachelors</option>
+            <option value="Family">Family</option>
+            <option value="Bachelors/Family">Bachelors/Family</option>
+        </select>
+        <button type="Submit">Predict</button>
+    </form>
+    <h3>{{prediction_text}}</h3>
+</body>
+</html>

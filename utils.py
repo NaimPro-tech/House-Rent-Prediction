@@ -1,3 +1,5 @@
+import pandas as pd
+
 def cv_target_encoding(X, y, cols, n_split=5):
     import numpy as np
     from category_encoders import TargetEncoder
@@ -23,3 +25,19 @@ def cv_target_encoding(X, y, cols, n_split=5):
             X_enc.iloc[val_idx, X.columns.get_loc(col)] = te.transform(X_val[col])[col]
 
     return X_enc
+
+
+def create_features(df):
+    df['floor_ratio'] = df['living_floor']/df['total_floor'].replace(0,1)
+    df['size_per_bhk'] = df['size']/df['bhk'].replace(0,1)
+    df['bathroom_per_room'] = df['bathroom']/df['bhk'].replace(0,1)
+
+    return df
+
+
+def preprocess(df, encoder, features):
+    df = create_features(df)
+    df['area_locality'] = encoder.transform(df['area_locality'])
+    df = pd.get_dummies(df)
+    df = df.reindex(columns=features, fill_value=0)
+    return df

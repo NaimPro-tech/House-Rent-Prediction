@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from category_encoders import TargetEncoder
-from necessary_functions import cv_target_encoding
+from utils import cv_target_encoding
 from xgboost import XGBRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
@@ -43,15 +43,15 @@ df['floor_ratio'] = df['living_floor']/df['total_floor']
 df['size_per_bhk'] = df['size']/df['bhk']
 df['bathroom_per_room'] = df['bathroom']/df['bhk']
 
+df['is_bachelors_allowed'] = df['tenant_preferred'].apply(lambda x: 1 if 'Bachelors' in x else 0)
+df['is_family_allowed'] = df['tenant_preferred'].apply(lambda x: 1 if 'Family' in x else 0)
+
 
 X = df.drop('rent', axis=1)
 y = df['rent']
 
 X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, random_state=42)
 X_temp, X_test, y_temp, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
-
-df['is_bachelors_allowed'] = df['tenant_preferred'].apply(lambda x: 1 if 'Bachelors' in x else 0)
-df['is_family_allowed'] = df['tenant_preferred'].apply(lambda x: 1 if 'Family' in x else 0)
 
 cols = ['area_locality']
 

@@ -1,50 +1,196 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    <title>House Rent Prediction in India</title>
+<head>
+    <title>House Rent Prediction</title>
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4fac4f, #00f2fe);
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            height:100vh;
+            margin:0;
+        }
+
+        .container{
+            background:skyblue;
+            width:520px;
+            max-height:90vh;
+
+            padding:25px;
+            border-radius:15px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.2);
+
+            overflow-y:auto;
+        }
+
+        h2{
+            text-align:center;
+            margin-bottom:15px;
+        }
+
+        form{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:15px;
+        }
+
+        .full{
+            grid-column: span 2;
+        }
+
+        label{
+            font-size:14px;
+            margin-bottom:5px;
+            display:block;
+        }
+
+        input, select{
+            width:100%;
+            padding:10px;
+
+            border-radius:8px;
+            border:1px solid #ccc;
+
+            box-sizing:border-box;
+            font-size:14px;
+        }
+
+        input:focus, select:focus{
+            outline:none;
+            border-color:#4fac4f;
+            box-shadow:0 0 5px rgba(79,172,79,0.4);
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+
+            background:#4fac4f;
+            color:white;
+
+            border:none;
+            border-radius:8px;
+
+            cursor:pointer;
+            font-size:16px;
+
+            transition:0.3s;
+        }
+
+        button:hover{
+            background:#00c6fb;
+        }
+
+        .result{
+            margin-top:15px;
+            text-align:center;
+
+            font-size:18px;
+            font-weight:bold;
+            color:#333;
+        }
+
+    </style>
+
 </head>
+
 <body>
+
+<div class="container">
+
     <h2>House Rent Prediction</h2>
+
     <form action="/predict_ui" method="post">
-        <label>Area Locality:</label><br>
-        <input type="text" name="area_locality"><br><br>
 
-        <label>BHK:</label><br>
-        <input type="number" name="bhk"><br><br>
+        <!-- FULL WIDTH -->
+        <div class="full">
+            <label>Area Locality</label>
+            <input type="text" name="area_locality" required>
+        </div>
 
-        <label>Size</label><br>
-        <input type="number" name="size"><br><br>
+        <!-- LEFT RIGHT GRID -->
+        <div>
+            <label>BHK</label>
+            <input type="number" name="bhk" min="1" required>
+        </div>
 
-        <label>Bathroom:</label><br>
-        <input type="number" name="bathroom"><br><br>
+        <div>
+            <label>Size</label>
+            <input type="number" name="size" min="1" required>
+        </div>
 
-        <select name="city">
-            <option value="Chennai">Chennai</option>
-            <option value="Delhi">Delhi</option>
-            <option value="Mumbai">Mumbai</option>
-            <option value="Kolkata">Kolkata</option>
-            <option value="Hyderabad">Hyderabad</option>
-        </select>
+        <div>
+            <label>Bathroom</label>
+            <input type="number" name="bathroom" min="1" required>
+        </div>
 
-        <select name="area_type">
-            <option value="Super Area">Super Area</option>
-            <option value="Carpet Area">Carpet Area</option>
-            <option value="Built Area">Built Area</option>
-        </select>
+        <div>
+            <label>Living Floor</label>
+            <input type="number" name="living_floor" required>
+        </div>
 
-        <select name="furnishing_status">
-            <option value="Unfurnished">Unfurnished</option>
-            <option value="Semi-Furnished">Semi Furnished</option>
-            <option value="Furnished">Furnished</option>
-        </select>
+        <div>
+            <label>Total Floor</label>
+            <input type="number" name="total_floor" required>
+        </div>
 
-        <select name="tenant_preferred">
-            <option value="Bachelors">Bachelors</option>
-            <option value="Family">Family</option>
-            <option value="Bachelors/Family">Bachelors/Family</option>
-        </select>
-        <button type="Submit">Predict</button>
+        <!-- DROPDOWNS FULL WIDTH -->
+        <div class="full">
+            <label>City</label>
+            <select name="city">
+                <option value="Chennai">Chennai</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="Hyderabad">Hyderabad</option>
+            </select>
+        </div>
+
+        <div class="full">
+            <label>Area Type</label>
+            <select name="area_type">
+                <option value="Super Area">Super Area</option>
+                <option value="Carpet Area">Carpet Area</option>
+                <option value="Built Area">Built Area</option>
+            </select>
+        </div>
+
+        <div class="full">
+            <label>Furnishing Status</label>
+            <select name="furnishing_status">
+                <option value="Unfurnished">Unfurnished</option>
+                <option value="Semi-Furnished">Semi Furnished</option>
+                <option value="Furnished">Furnished</option>
+            </select>
+        </div>
+
+        <div class="full">
+            <label>Tenant Preferred</label>
+            <select name="tenant_preferred">
+                <option value="Bachelors">Bachelors</option>
+                <option value="Family">Family</option>
+                <option value="Bachelors/Family">Bachelors/Family</option>
+            </select>
+        </div>
+
+        <!-- BUTTON -->
+        <div class="full">
+            <button type="submit">Predict Rent</button>
+        </div>
+
     </form>
-    <h3>{{prediction_text}}</h3>
+
+    <div class="result">
+        {{ prediction_text }}
+    </div>
+
+</div>
+
 </body>
 </html>
